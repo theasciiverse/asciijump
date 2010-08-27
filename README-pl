@@ -1,0 +1,81 @@
+:: asciijump, version 0.0.1 Wed Feb 12 03:52:21 CET 2003
+:: 
+
+
+o   p r o j e k c i e   : 
+Kiedys przyszlo mi do glowy szyderstwo, ze mozna by tak
+napisac skoki narciarskie w trybie textowym ;)
+
+
+k o m p i l a c j a   : 
+asciijump uzywa bibloteki slang,
+wiec potrzbna bedzie paczka slang-devel ;/
+
+a s c i i j u m p   s e r w e r  :
+aby uruchomic serwer asciijump, nalezy w powoloce wpisac :
+	./aj-server
+	
+n a j p r o s t s z e   u z y c i e   s e r w e r a : 
+"hill read random;" - aby przeczytac losowe skocznie z tych 
+rozprowadzanych z paczka (skladowanych w ${datadir}/asciijump)
+
+"hill add nazwa dlugosc" - aby dodac swoja.
+
+"invite" - aby pozwoilic gracza na dolanczanie
+sie do naszego serwera.
+
+po tym jak juz jest wystarczajaca ilosc ludzi piszemy:
+"play"	- aby wystartowac gre.
+
+"user kick nazwa_gracza" - aby wyrzucic gracza.
+
+aby uzyskac szersza pomoc nalezy wpisac:
+"help"
+aby uzyskac szersza pomoc o komendzie nalezy wpisac:
+"nazwa_komendy help"
+
+
+
+k l a w i s z o l o g i a   :   
+w samym programie dostepny jest wielce obszerny help,
+ale napisze jeszcze kilka slow.
+
+w okienkach:
+enter - aby wejsc do pozycji menu.
+spacja - aby zaznaczyc pozycje menu - uzywane do zaznaczania 
+	skoczni i zawodnikow w trybie "world cup".
+
+na pagorku :
+enter - aby zaczac zjazd, wybic skoczka lub wyladowac.
+strzalki (prawo, lewo) - aby zmienic nachylenie skoczka
+ 
+Algorytm losowego przyznawania punktow sedziowskich,
+w duzej mierze zalezy od nachylenia skoczka w fazach lotu.
+ 
+
+
+d z i a l a n i e  :
+wyglad skoczka czytany jest z katalgu:
+${datadir}/asciijump/gfx
+skocznie (ich dlugosci i nazwy) czytane sa z katalogu :
+${datadir}/asciijump/hills
+
+
+
+l i c e n c j a   : 
+gnu gpl wersja druga.
+
+
+a u t o r z y  : 
+grzegorz moskal,
+
+michal moskal i przemek niezobrala - algorytm rysowania skoczni.
+
+
+r o b a k i  :
+komentarze, raporty o bledach, zyczenia itp.
+prosze wysylac pod adres:
+<eldevarth@nemerle.org>
+
+
+m i l y c h   o d l o t o w    ;) 

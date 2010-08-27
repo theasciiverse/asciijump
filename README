@@ -1,0 +1,71 @@
+:: asciijump, version 0.0.1 Wed Feb 12 03:52:21 CET 2003
+:: 
+
+
+asciijump is a small and funny ASCII-art game about ski jumping.
+
+
+r e q u i r e s :
+slang-devel
+
+
+i n s t a ll :
+
+Following sequence of shell commands should build, check and install 
+this game:
+	autoconf
+	./configure
+	make all
+	su
+	make install
+	
+Installation prefix defaults to /usr/local, see ./configure --help for
+info how to override it.
+
+
+l i c e n s e   : 
+gnu gpl v 2.
+
+
+
+
+a s c i i j u m p   s e r v e r 
+s i m p l e   u s a g e   : 
+
+"invite" - this allow users to join in.
+"hill read random" - this add some random hills.
+when some users are connected, (check it by "user show *" )
+type : "play" - to strat playing.
+
+type "help", or "'command' help" to get more info
+
+
+
+
+a u t h o r s: 
+grzegorz moskal <eldevarth@nemerle.org>,
+
+michal moskal <malekith@pld.org.pl>,
+przemek niezobrala <finburson@o2.pl>
+
+
+t h a n k s   :
+gergely nagy <algernon@debian.org>
+he was very helpfull and wrote "autostuff"
+
+rafal zawadzki <rz@ats.com.pl>
+manual page author.
+
+
+
+c o n t a c t   :
+send bugreports, fixes wishes etc. to
+grzegorz moskal <eldevarth@nemerle.org>
+
+
+d o w n l o a d    :   
+please visit project home page:
+http://asciijump.prv.pl
+
+
+I   h o p e   y o u ` l l   e n o j y   t h e   s h o w   ; )   ! 

@@ -1,0 +1,236 @@
+# :: Makefile.in for aciijump project,
+#
+
+GCCPREFIX	= @			# comment this line to enable normal output           <<
+
+
+PACKAGE		= asciijump
+VERSION		= @PACKAGE_VERSION@
+SHELL		= /bin/sh
+
+prefix		= @prefix@
+exec_prefix	= @exec_prefix@
+sysconfdir	= @sysconfdir@
+bindir		= @bindir@
+datadir		= @datadir@
+mandir		= @mandir@
+vardir		= @localstatedir@
+
+CC		= @CC@
+CFLAGS		= @CFLAGS@
+LDFLAGS		= @LDFLAGS@
+TAR		= tar
+GZIP		= gzip
+TAR_OPTIONS	=
+GZIP_ENV	= --best
+
+INSTALL		= @INSTALL@
+INSTALL_PROGRAM	= @INSTALL_PROGRAM@
+INSTALL_DATA	= @INSTALL_DATA@
+INSTALL_DIR	= @INSTALL@ -d
+
+srcdir		= @srcdir@
+top_srcdir	= @top_srcdir@
+subdir		=
+VPATH		= ${srcdir}
+ifeq (${subdir},)
+top_builddir	= .
+else
+top_builddir	= ..
+endif
+builddir	= @builddir@
+		
+EXTRA_DIST	= configure configure.ac config.h.in install-sh \
+		config.guess config.sub asciijump.png asciijump.desktop \
+		asciijump.spec COPYING README README-pl gfx hills include asciijump.6
+		
+CLEANFILES	= ${SOURCES:.c=.da}
+DISTCLEANFILES	= Makefile config.status config.log
+MAINTCLEANFILES = configure
+
+
+INCLUDES	= -I. -I${top_srcdir}/include -I${top_builddir}
+DEFINES		= -DVERSION=\"${VERSION}\" -DPACKAGE=\"${PACKAGE}\" \
+		-DDATADIR=\"${datadir}/${PACKAGE}\" -DVARDIR=\"${vardir}/games/asciijump/\"
+ALL_CFLAGS	= ${INCLUDES} ${DEFINES} ${CFLAGS} -g
+
+LIBS		= @LIBS@
+ALL_LDFLAGS	= ${LIBS} ${LDFLAGS}
+
+# colors 
+color="[0m[36m"
+color_light="[0m[36m[1m"
+color_reset="[0m"
+
+# asciijump client
+ac_name		= "asciijump"
+ac_src		= $(wildcard scr*.c) \
+		   cmdline.c\
+		   wsys.c\
+		   frame.c\
+		   skier.c\
+		   hill.c\
+		   skin.c\
+		   matrix.c\
+		   intro.c\
+		   main.c\
+		   slang.c\
+		   client.c\
+		   cup.c
+ac_obj		= $(addprefix bin/,${ac_src:.c=.o})
+
+# asciijump eerver
+as_name		= "aj-server"
+as_src		= $(wildcard as*.c)
+as_obj		= $(addprefix bin/,${as_src:.c=.o})
+
+# object used in ac and as to
+other_src	= xfnc.c
+other_obj	= $(addprefix bin/,${other_src:.c=.o})
+
+DISTFILES	= ${ac_src} ${as_src} ${other_src} ${HEADERS} Makefile.in ${EXTRA_DIST}
+
+
+
+bin/%.o: %.c
+	 @echo 
+	 @echo -n "$< .. "
+	 ${GCCPREFIX}${CC} ${ALL_CFLAGS} -c $< -o $@
+	 @echo -n "ok";
+
+
+all: bin ${ac_name} ${as_name} ${other_obj}
+	@echo
+	@ctags ${other_src} ${as_src} ${ac_src} include/*
+	@echo "type: ${color}./${ac_name}${color_reset} to run asciijump client"
+	@echo "type: ${color}./${as_name}${color_reset} to run asciijump server"
+	
+bin:
+	@[ -d bin ] || mkdir bin
+
+ac_info:
+	@echo -n "${color}creating client ${color_light}{${color_reset}"
+	
+${ac_name}: ac_info ${other_obj} ${ac_obj}
+	@${CC} ${ALL_LDFLAGS} -o $@ ${ac_obj} ${other_obj}
+	@echo "  ${color_light}} .. ${color}ok${color_reset}"
+	@echo
+
+	
+as_info: 
+	@echo -n "${color}creating server ${color_light}{${color_reset}"
+	
+${as_name}: as_info ${other_obj} ${as_obj}
+	@${CC} ${ALL_LDFLAGS} -o $@ ${as_obj} ${other_obj}
+	@echo "  ${color_light}} .. ${color}ok${color_reset}"
+
+install: all
+	${INSTALL} -d ${DESTDIR}${datadir}/${ac_name}
+	find gfx -type d ! -path '*CVS*'  -exec \
+			 ${INSTALL} -d ${DESTDIR}${datadir}/${PACKAGE}/{} \;
+	find gfx -type f ! -path '*CVS*'  -exec ${INSTALL_DATA} {} \
+			 ${DESTDIR}${datadir}/${PACKAGE}/{} \;
+	find hills -type d ! -path '*CVS*'  -exec \
+			 ${INSTALL} -d ${DESTDIR}${datadir}/${PACKAGE}/{} \;
+	find hills -type f ! -path '*CVS*'  -exec ${INSTALL_DATA} {} \
+			 ${DESTDIR}${datadir}/${PACKAGE}/{} \;
+	${INSTALL} -d ${DESTDIR}${bindir}/
+	${INSTALL_PROGRAM} ${ac_name} ${DESTDIR}${bindir}/
+	${INSTALL_PROGRAM} ${as_name} ${DESTDIR}${bindir}/
+
+	${INSTALL} -d $(DESTDIR)$(prefix)/share/applications
+	${INSTALL} -m 644 asciijump.desktop \
+		$(DESTDIR)$(prefix)/share/applications
+		
+	${INSTALL} -d $(DESTDIR)$(prefix)/X11R6/share/pixmaps
+	${INSTALL} -m 644 asciijump.png $(DESTDIR)$(prefix)/X11R6/share/pixmaps
+		
+	${INSTALL} -d $(DESTDIR)$(prefix)/share/pixmaps
+	${INSTALL} -m 644 asciijump.png $(DESTDIR)$(prefix)/share/pixmaps
+	
+	${INSTALL} -d $(DESTDIR)$/$(mandir)/man6
+	${INSTALL} -m 644 asciijump.6 $(DESTDIR)$/$(mandir)/man6
+
+	${INSTALL} -d $(DESTDIR)$/$(vardir)/games
+	${INSTALL} -d -m 777 $(DESTDIR)$/$(vardir)/games/asciijump
+
+install-strip:
+	${MAKE} INSTALL_PROGRAM='${INSTALL_PROGRAM} -s' install
+
+uninstall:
+	rm -f ${DESTDIR}${bindir}/${ac_name}
+	rm -f ${DESTDIR}${bindir}/${as_name}
+	rm -rf ${DESTDIR}${datadir}/${name}
+	rm -f $(DESTDIR)$(prefix)/X11R6/share/applnk/Games/Arcade/asciijump.desktop
+	rm -f $(DESTDIR)$(prefix)/share/applnk/Games/Arcade/asciijump.desktop
+	rm -f $(DESTDIR)$(prefix)/X11R6/share/pixmaps/asciijump.png
+	rm -f $(DESTDIR)$(prefix)/share/pixmaps/asciijump.png
+	rm -f $(DESTDIR)/$(mandir)/man6/asciijump.6
+
+distdir = ${top_builddir}/${PACKAGE}-${VERSION}/${subdir}
+
+dist:
+	test -z "${distdir}" || rm -rf "${distdir}"
+	${INSTALL_DIR} ${distdir}
+	@list='${DISTFILES}'; for f in $$list; do \
+		if test -e ${srcdir}/$$f; then \
+			fn=${srcdir}/$$f; \
+		else \
+			fn=$$f; \
+		fi ; \
+		echo cp -pr $$fn ${distdir}/$$f ;\
+		cp -pr $$fn ${distdir}/$$f ;\
+	done
+	find ${distdir} -type d -name 'CVS' | xargs rm -rf
+	find ${distdir} -type d -name '.svn' | xargs rm -rf
+	${TAR} ${TAR_OPTIONS} -cf - ${PACKAGE}-${VERSION} | ${GZIP} ${GZIP_ENV} >${PACKAGE}-${VERSION}.tar.gz
+	test -z "${distdir}" || rm -rf "${distdir}"
+
+distcheck: dist
+	${GZIP} -dfc ${PACKAGE}-${VERSION}.tar.gz | tar ${TAR_OPTIONS} -xf -
+	cd ${PACKAGE}-${VERSION} && ./configure
+	${MAKE} -C ${PACKAGE}-${VERSION} all install dist DESTDIR=$(shell pwd)/${PACKAGE}-${VERSION}
+	rm -rf ${PACKAGE}-${VERSION}
+	@banner="${PACKAGE}-${VERSION}.tar.gz is ready for distribution." ;\
+	dashes=`echo "$$banner" | sed -e s/./=/g`; \
+	echo "$$dashes" ;\
+	echo "$$banner" ;\
+	echo "$$dashes"
+
+mostlyclean clean:
+	rm -fr *~ ${ac_name} ${as_name} bin tags core
+	test -z "${CLEANFILES}" || rm -rf ${CLEANFILES}
+	
+distclean: clean
+	rm -f Makefile
+	test -z "${DISTCLEANFILES}" || rm -rf ${DISTCLEANFILES}
+	
+maintainer-clean: distclean
+	test -z "${MAINTCLEANFILES}" || rm -rf ${MAINTCLEANFILES}
+
+distdir = ${top_builddir}/${PACKAGE}-${VERSION}/${subdir}
+distdir: ${DISTFILES}
+	${INSTALL_DIR} ${distdir}
+	@list='${DISTFILES}'; for f in $$list; do \
+		if test -e ${srcdir}/$$f; then \
+			fn=${srcdir}/$$f; \
+		else \
+			fn=$$f; \
+		fi ; \
+		echo cp -p $$fn ${distdir}/$$f ;\
+		cp -p $$fn ${distdir}/$$f ;\
+	done
+
+${builddir}/Makefile: ${srcdir}/Makefile.in ${top_builddir}/config.status
+	cd ${top_builddir} && ./config.status
+
+## -- Dependencies -- ##
+${top_builddir}/config.h: ${top_builddir}/config.status
+
+## -- ${MAKE} control -- ##
+.PHONY: all bin install clean distclean mostlyclean \
+	uninstall maintainer-clean distdir dist distcheck
+.SUFFIXES:
+.SUFFIXES: .c .o
+.DEFAULT: all
+
