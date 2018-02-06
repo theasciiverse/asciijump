@@ -109,6 +109,12 @@ void sl_init(void (*program_finish)(void))
 	if (SLang_init_tty(-1, 0, 0) == -1)
 		sl_die("Unable to initialize SLang terminal.");
 	SLsmg_init_smg();
+
+	/* enable UTF-8 mode if using appropiate locale */
+	SLutf8_enable(-1);
+	SLtt_utf8_enable(-1);
+	SLsmg_utf8_enable(-1);
+	SLinterp_utf8_enable(-1);
 	
 	SLang_set_abort_signal(int_handler);
 
