@@ -29,10 +29,10 @@ int parse_cmdline(int argc, char **argv)
 	for (; i < argc; i++) 
 		switch(optionid(argv[i])) {
 		case Help:
-			printf(usage);
+			printf("%s", usage);
 			return 0;
 		case Version:
-			printf(version);
+			printf("%s", version);
 			return 0;
 		case Matrix_full:
 			mx_mode = MATRIX_FULL;
