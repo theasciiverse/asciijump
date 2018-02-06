@@ -55,7 +55,6 @@ DEFINES		= -DVERSION=\"${VERSION}\" -DPACKAGE=\"${PACKAGE}\" \
 ALL_CFLAGS	= ${INCLUDES} ${DEFINES} ${CFLAGS} -g
 
 LIBS		= @LIBS@
-ALL_LDFLAGS	= ${LIBS} ${LDFLAGS}
 
 # colors 
 color="[0m[36m"
@@ -112,7 +111,7 @@ ac_info:
 	@echo -n "${color}creating client ${color_light}{${color_reset}"
 	
 ${ac_name}: ac_info ${other_obj} ${ac_obj}
-	@${CC} ${ALL_LDFLAGS} -o $@ ${ac_obj} ${other_obj}
+	@${CC} ${LDFLAGS} -o $@ ${ac_obj} ${other_obj} ${LIBS}
 	@echo "  ${color_light}} .. ${color}ok${color_reset}"
 	@echo
 
@@ -121,7 +120,7 @@ as_info:
 	@echo -n "${color}creating server ${color_light}{${color_reset}"
 	
 ${as_name}: as_info ${other_obj} ${as_obj}
-	@${CC} ${ALL_LDFLAGS} -o $@ ${as_obj} ${other_obj}
+	@${CC} ${LDFLAGS} -o $@ ${as_obj} ${other_obj} ${LIBS}
 	@echo "  ${color_light}} .. ${color}ok${color_reset}"
 
 install: all
