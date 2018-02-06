@@ -18,7 +18,7 @@ AC_HEADER_DIRENT
 AC_HEADER_STDC
 AC_HEADER_SYS_WAIT
 AC_CHECK_HEADERS([slang.h slang/slang.h stdlib.h string.h unistd.h])
-AC_DEFINE(Version, $(cat V))
+AC_DEFINE(Version, [], $(cat V))
 #AC_CHECK_HEADERS([stdlib.h string.h unistd.h])
 #AC_CHECK_HEADER([slang.h], [AC_DEFINE_UNQUOTED(HAVE_SLANG_H, 1)],
 #		[AC_CHECK_HEADER([slang/slang.h])])                                           .
