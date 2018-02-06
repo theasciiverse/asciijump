@@ -63,7 +63,7 @@ color_reset="[0m"
 
 # asciijump client
 ac_name		= "asciijump"
-ac_src		= $(wildcard scr*.c) \
+ac_src		= $(sort $(wildcard scr*.c)) \
 		   cmdline.c\
 		   wsys.c\
 		   frame.c\
@@ -80,7 +80,7 @@ ac_obj		= $(addprefix bin/,${ac_src:.c=.o})
 
 # asciijump eerver
 as_name		= "aj-server"
-as_src		= $(wildcard as*.c)
+as_src		= $(sort $(wildcard as*.c))
 as_obj		= $(addprefix bin/,${as_src:.c=.o})
 
 # object used in ac and as to
