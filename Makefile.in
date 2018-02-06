@@ -142,8 +142,8 @@ install: all
 	${INSTALL} -m 644 asciijump.desktop \
 		$(DESTDIR)$(prefix)/share/applications
 		
-	${INSTALL} -d $(DESTDIR)$(prefix)/X11R6/share/pixmaps
-	${INSTALL} -m 644 asciijump.png $(DESTDIR)$(prefix)/X11R6/share/pixmaps
+	${INSTALL} -d $(DESTDIR)$(prefix)/share/pixmaps
+	${INSTALL} -m 644 asciijump.png $(DESTDIR)$(prefix)/share/pixmaps
 		
 	${INSTALL} -d $(DESTDIR)$(prefix)/share/pixmaps
 	${INSTALL} -m 644 asciijump.png $(DESTDIR)$(prefix)/share/pixmaps
