@@ -33,6 +33,7 @@ struct s_hill {
 #include <string.h>	// strstr()
 #include <stdlib.h>
 #include <unistd.h>	
+#include <sys/stat.h>	// mkdir()
 #include "xfnc.h"	// XALLOC macro	
 #include "slangwrap.h"	// sl_color()
 #include "skier.h"	// struct skier

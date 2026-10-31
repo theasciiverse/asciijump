@@ -38,17 +38,24 @@ void quit(void)
 
 static int init(void)
 {
+	char *datadir, *gfxdir, *hilldir;
+
 	// srand(time(0) ^ getpid(0)); 
 	rand_init();
 	// slang init
 	sl_init(NULL);
 	// matrix init (background)
 	mx_init(0, 0, WIDTH, HEIGHT);	
+	// ASCIIJUMP_DATADIR overrides the compiled-in data folder (relocated installs)
+	if ((datadir = getenv("ASCIIJUMP_DATADIR")) == NULL)
+		datadir = DATADIR;
+	gfxdir = strdglue(datadir, "gfx");
+	hilldir = strdglue(datadir, "hills");
 	// skin init
-	if ((skin = skin_make("gfx")) == NULL && (skin = skin_make(DATADIR"/gfx")) == NULL)
+	if ((skin = skin_make("gfx")) == NULL && (skin = skin_make(gfxdir)) == NULL)
 		return 1;
 	// read diriectory with hills
-	if (hl_readdir("hills") <= 0 && hl_readdir(DATADIR"/hills") <= 0) {
+	if (hl_readdir("hills") <= 0 && hl_readdir(hilldir) <= 0) {
 		printf("no hill !\n");
 		return 2;
 	}

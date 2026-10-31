@@ -101,7 +101,6 @@ bin/%.o: %.c
 
 all: bin ${ac_name} ${as_name} ${other_obj}
 	@echo
-	@ctags ${other_src} ${as_src} ${ac_src} include/*
 	@echo "type: ${color}./${ac_name}${color_reset} to run asciijump client"
 	@echo "type: ${color}./${as_name}${color_reset} to run asciijump server"
 	

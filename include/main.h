@@ -9,6 +9,7 @@ A_quit
 } a_state;
 #ifdef  MAIN_C
 #include <unistd.h>	// usleep()
+#include <stdlib.h>	// getenv()
 #include "skier.h"	// sk_draw()
 #include "hill.h"	// hl_draw()
 #include "skin.h"	// struct skin

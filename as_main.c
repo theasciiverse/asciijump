@@ -418,7 +418,13 @@ static int as_loop()
 
 void as_init(void)
 {
+	char *datadir;
+
 	signal(SIGINT, as_finish);
+
+	// ASCIIJUMP_DATADIR overrides the compiled-in data folder, as in the client
+	if ((datadir = getenv("ASCIIJUMP_DATADIR")) != NULL)
+		as_hilldir = strdglue(datadir, "hills");
 
 	as_players = XALLOC(s_as_players);
 	

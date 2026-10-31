@@ -53,9 +53,25 @@ void hl_add(struct s_hill *h)
 	}
 }
 
+/* where hill records live: VARDIR on a setgid install, else ~/.asciijump/
+   (created if needed), so records keep without setgid games */
+static const char *hl_record_dir(void)
+{
+	static char *dir = NULL;
+	char *home;
+
+	if (dir)
+		return dir;
+	if (access(VARDIR, W_OK) == 0 || (home = getenv("HOME")) == NULL)
+		return dir = VARDIR;
+	dir = strglue(home, "/.asciijump/", "");
+	mkdir(dir, 0755);
+	return dir;
+}
+
 int hl_record_write(struct s_hill *h)
 {
-	char *name = strdglue(VARDIR, h->name);
+	char *name = strglue(hl_record_dir(), h->name, "");
 	FILE *fd = fopen(name, "w");
 	
 	xfree(name);
@@ -66,10 +82,12 @@ int hl_record_write(struct s_hill *h)
 	fwrite(&h->record, sizeof(double), 1, fd);	
 	fclose(fd);
 
-	name = strglue(VARDIR, h->name, ".owner");
+	name = strglue(hl_record_dir(), h->name, ".owner");
 	fd = fopen(name, "w");
-	fprintf(fd, "%s", h->owner);
 	xfree(name);
+	if (fd == NULL)
+		return 0;
+	fprintf(fd, "%s", h->owner);
 	fclose(fd);
 
 	return 1;
@@ -77,7 +95,7 @@ int hl_record_write(struct s_hill *h)
 
 void hl_record_read(struct s_hill *h)
 {
-	char *name = strglue(VARDIR, h->name, "");
+	char *name = strglue(hl_record_dir(), h->name, "");
 	FILE *fd = fopen(name, "r");
 	xfree(name);
 
@@ -87,7 +105,7 @@ void hl_record_read(struct s_hill *h)
 	fread(&h->record, sizeof(double), 1, fd);
 	fclose(fd);
 	
-	name = strglue(VARDIR, h->name, ".owner");
+	name = strglue(hl_record_dir(), h->name, ".owner");
 	fd = fopen(name, "r");
 	xfree(name);
 	
