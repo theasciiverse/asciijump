@@ -365,7 +365,7 @@ static int as_command(void)
 	return 1;
 }
 
-void as_finish()
+void as_finish(int sig)
 {
 	struct s_as_player *p = as_players->head;
 	
@@ -409,7 +409,7 @@ static int as_loop()
 		break;
 
 	case AS_finish:	
-		as_finish();
+		as_finish(0);
 		return 0;
 	}
 	
