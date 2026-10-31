@@ -13,6 +13,8 @@
 #include "main.h"	// game_show()
 #include "scrmain.h"	// scrmain_show()
 #include "scrclient.h"	// ;) 
+#include "scrresult.h"
+#include "slangwrap.h"
 #include "xfnc.h"	// xread()
 #include "skier.h"	// sk_head
 #include "hill.h"	// hl_init()

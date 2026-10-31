@@ -3,6 +3,7 @@
 
 #ifdef  SCRCLIENT_C
 #include <string.h>	// strlen()
+#include <stdlib.h>
 #include "main.h"	// game_show()
 #include "scrmain.h"	// scrmain_show()
 #include "slangwrap.h"	// WIDTH ..

@@ -58,4 +58,6 @@ void sk_change_mode(struct s_skier *s, char *name, int color, int level, int in_
 void sk_flush(struct s_skier *s, struct s_hill *m);
 void sk_draw(struct s_skier *s);
 void sk_add(struct s_skier *s);
+int sk_service(struct s_skier *s, int key);
+void sk_cpujump(struct s_skier *s);
 #endif

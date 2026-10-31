@@ -6,6 +6,7 @@
 #include "hill.h"	// struct hill
 #include "main.h"	// int status
 #include "scrmain.h"	// scrmain_show()
+#include "scrresult.h"
 #include "slangwrap.h"	// WIDTH, sl_cls() ..
 #include "wsys.h"	// text window system.
 #include "xfnc.h"	// SWITCH macro, xfree()
