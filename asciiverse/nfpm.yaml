@@ -1,0 +1,48 @@
+# System packages (.deb, .rpm, .apk, Arch) for asciijump, built by nfpm from
+# the same static Linux build as the av archive. The release workflow sets
+# VERSION, RELEASE (our packaging release) and ARCH (amd64 or arm64).
+#
+# No .desktop file on purpose: av is the one place titles are started from,
+# so Asciiverse packages never add menu entries (asciiverse/CLAUDE.md).
+#
+# Installed without setgid games, so there is no shared /var/games record
+# folder: each player's hill records go to ~/.asciijump/ (see PATCHES.md).
+name: asciijump
+arch: ${ARCH}
+platform: linux
+version: ${VERSION}
+release: ${RELEASE}
+section: games
+priority: optional
+maintainer: Asciiverse <packages@asciiverse.sh>
+vendor: Asciiverse
+homepage: https://github.com/theasciiverse/asciijump
+license: GPL-2.0-or-later
+description: |
+  Small and funny ASCII-art game about ski jumping.
+  Training, a World Cup against the computer and friends on one keyboard,
+  and network games through its own server, aj-server.
+  asciijump 1.0.2~beta by Grzegorz Moskal and others, with Debian's
+  patches, packaged by Asciiverse.
+contents:
+  - src: asciijump
+    dst: /usr/bin/asciijump
+    file_info: { mode: 0755 }
+  - src: aj-server
+    dst: /usr/bin/aj-server
+    file_info: { mode: 0755 }
+  - src: stage/gfx
+    dst: /usr/share/asciijump/gfx
+    type: tree
+  - src: stage/hills
+    dst: /usr/share/asciijump/hills
+    type: tree
+  - src: asciijump.6
+    dst: /usr/share/man/man6/asciijump.6
+    file_info: { mode: 0644 }
+  - src: COPYING
+    dst: /usr/share/doc/asciijump/copyright
+    file_info: { mode: 0644 }
+  - src: README
+    dst: /usr/share/doc/asciijump/README
+    file_info: { mode: 0644 }

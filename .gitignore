@@ -1,0 +1,13 @@
+# build output
+/bin/
+/asciijump
+/aj-server
+/Makefile
+/config.h
+/config.log
+/config.status
+/autom4te.cache/
+# Asciiverse packaging scratch
+/.slang/
+/stage/
+/dist/

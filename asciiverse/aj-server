@@ -1,0 +1,6 @@
+#!/bin/sh
+# Starts the asciijump network server from an av install, with the hills
+# next to this script. Run it from the install folder to host a game.
+self=$(readlink "$0" 2>/dev/null || printf '%s' "$0")
+dir=$(cd "$(dirname "$self")" && pwd)
+ASCIIJUMP_DATADIR="$dir" exec "$dir/lib/aj-server" "$@"

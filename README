@@ -1,3 +1,15 @@
+Play it with Asciiverse
+=======================
+
+With av, the Asciiverse client (https://asciiverse.sh):
+
+    av install asciijump
+    av play asciijump
+
+The original README follows.
+
+------------------------------------------------------------------------
+
 :: asciijump, version 0.0.1 Wed Feb 12 03:52:21 CET 2003
 :: 
 
