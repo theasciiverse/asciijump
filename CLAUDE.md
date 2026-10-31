@@ -16,6 +16,7 @@ every one in PATCHES.md.
 - Keys: Enter starts the run, jumps and lands (telemark); left/right lean
   in the air; q leaves the hill. `'` in flight is a hidden "lucky" gust.
 - The game chdirs into the hills folder while reading it.
-- Preview: run `./asciijump` from `stage/` in a 100x30 tmux session with
-  the status line off, record `tmux attach` with hub's `tools/castrec.py`,
-  and drive it with `python3 asciiverse/drive.py <session> 38`.
+- Preview: in a 100x30 tmux session (status line off), run `asciinema rec`
+  (3.x, flags per hub's RECORDING.md, `--command ./asciijump`) from
+  `stage/` with a throwaway HOME and USER=player, and drive it with
+  `python3 asciiverse/drive.py <session> 38`; then cap pauses at 2 s.

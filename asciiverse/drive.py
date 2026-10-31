@@ -1,9 +1,10 @@
 """drive.py SESSION SECONDS [GAP] [debug]: play asciijump's training in a
 tmux pane, jumping until SECONDS have passed, then quit.
 
-Recorded asciiverse/asciijump.cast: asciijump runs in a 100x30 tmux session
-(status line off), hub's tools/castrec.py records a `tmux attach` to it, and
-this script reads the pane (with colours) and sends the keys. The skier is drawn in blue and cyan and the hill in white;
+Recorded asciiverse/asciijump.cast: asciinema rec (3.x) runs ./asciijump
+inside a 100x30 tmux session (status line off) while this script reads the
+pane (with colours) and sends the keys. Pauses over 2 s are then capped in
+the file, as the player does, so media.thumbnail_at matches playback. The skier is drawn in blue and cyan and the hill in white;
 it lands with a telemark when the gap between them is small."""
 import re, subprocess, sys, time
 
