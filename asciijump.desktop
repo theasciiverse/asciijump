@@ -2,7 +2,7 @@
 Name=asciijump
 Comment=A clone of the dsj game
 Comment[pl]=Klon gry dsj
-Icon=asciijump.xpm
+Icon=asciijump
 Exec=asciijump
 Terminal=true
 Type=Application
