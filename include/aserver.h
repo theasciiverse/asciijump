@@ -70,8 +70,9 @@ static void as_send2players(n_type t, char *buf);
 
 #else
 
+#include <stdint.h>
 extern struct s_as_players *as_players;
-extern short int as_port;
+extern uint16_t as_port;
 extern int as_limit;
 extern s_state as_state;
 extern s_state as_work;
