@@ -136,22 +136,27 @@ char *xgetline(FILE *fd)
 	int length = 1;
 	int i = 0;
 	char *line = NULL;
+	int c;
 
 	for (;;) {
 		if (length-1 == i) {
 			length *=3;
 			line = xrealloc(line, length*(sizeof(char)));
 		}
-		
-		line[i] = fgetc(fd);
 
-		if (line[i] == EOF) {
-			if (i == 0)
+		// read into an int: where char is unsigned (arm), EOF never matched
+		c = fgetc(fd);
+		line[i] = c;
+
+		if (c == EOF) {
+			if (i == 0) {
+				xfree(line);
 				return NULL;
+			}
 			line[i] = '\0';
 			break;
 
-		} else if (line[i] == '\n') {
+		} else if (c == '\n') {
 			if (i == 0)
 				return xgetline(fd);
 			line[i] = '\0';

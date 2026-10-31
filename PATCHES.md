@@ -31,6 +31,10 @@ name (Reiner Herrmann), and the GCC 15 build fix (Adrian Bunk). Tagged
   before.
 - **Builds without ctags.** `make all` no longer runs ctags, which only
   wrote a tags file.
+- **Hill files load on ARM.** xgetline() kept fgetc()'s result in a char,
+  so where char is unsigned (arm64) EOF never matched and reading the
+  hills hung; it now reads into an int. Found by the Games on the Linux
+  console blog (ttygames.wordpress.com, 2013) on a Raspberry Pi.
 - **main.h includes <stdlib.h>** for getenv().
 - **How to play it, at the top of README.** A short note on installing and
   starting it with av; the original text follows unchanged.
