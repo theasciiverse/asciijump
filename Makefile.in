@@ -18,6 +18,7 @@ vardir		= @localstatedir@
 
 CC		= @CC@
 CFLAGS		= @CFLAGS@
+CPPFLAGS		= @CPPFLAGS@
 LDFLAGS		= @LDFLAGS@
 TAR		= tar
 GZIP		= gzip
@@ -94,7 +95,7 @@ DISTFILES	= ${ac_src} ${as_src} ${other_src} ${HEADERS} Makefile.in ${EXTRA_DIST
 bin/%.o: %.c
 	 @echo 
 	 @echo -n "$< .. "
-	 ${GCCPREFIX}${CC} ${ALL_CFLAGS} -c $< -o $@
+	 ${GCCPREFIX}${CC} ${CPPFLAGS} ${ALL_CFLAGS} -c $< -o $@
 	 @echo -n "ok";
 
 
