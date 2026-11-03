@@ -43,8 +43,8 @@ name (Reiner Herrmann), and the GCC 15 build fix (Adrian Bunk). Tagged
 
 - `asciiverse/build.sh`: builds S-Lang 2.3.3 from its release tarball
   (checksum pinned) and links it in statically; static Linux build in
-  Alpine, macOS builds per architecture; regenerates configure, as Debian
-  does.
+  Alpine, macOS builds per architecture; regenerates configure and takes
+  current config.guess and config.sub from automake, as Debian does.
 - `asciiverse/asciijump`, `asciiverse/aj-server`, `asciiverse/stage.sh`:
   av's start scripts and the archive layout (binaries in lib/, gfx/ and
   hills/ beside them).
